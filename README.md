@@ -10,3 +10,4 @@
 * Use pattern_offset.rb to discover the offset of these specific 4 bytes in the unique byte string and edit buffer variable (Ex. pattern_offset.rb -l 2700 -q 39694438. See slmail_pop3_pattern_offset.py
 in repo).
 * Locate space for the shellcode - a standart reverse shell payload requires about 350-400 bytes of space. Locate a convenient location to place the shellcode using the crash in Immunity debugger (Ex. C's in slmail crash are 90 bytes. You can increase the buffer length in order to make the shellcode fit. Ex. Increased buffer in slmail from 2700 to 3500. See slmail_pop3_locate_space.py in repo).
+* Check for bad characters - an easy way to do this is to send all possible chars, from 0x00 to 0xff, as part of the buffer variable. See how these chars are dealt with by the app, after the crash (See slmail_pop3_bad_chars.py).
