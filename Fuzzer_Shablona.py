@@ -11,5 +11,5 @@ for string in buffer:
 	s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	connect=s.connect(('<TARGET_IP_ADDRESS>',110))
 	s.recv(1024)
-	s.send(buffer+'\r\n')
- s.close()
+	s.send(string + '\r\n')
+        s.close()
