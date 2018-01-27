@@ -12,3 +12,9 @@ in repo).
 * Locate space for the shellcode - a standart reverse shell payload requires about 350-400 bytes of space. Locate a convenient location to place the shellcode using the crash in Immunity debugger (Ex. C's in slmail crash are 90 bytes. You can increase the buffer length in order to make the shellcode fit. Ex. Increased buffer in slmail from 2700 to 3500. See slmail_pop3_locate_space.py in repo).
 * Check for bad characters - an easy way to do this is to send all possible chars, from 0x00 to 0xff, as part of the buffer variable. See how these chars are dealt with by the app in memory dump of ESP register (Follow in dump - 01 02 03 etc..), after the crash (Ex. 0x00 - null byte is always bad. See slmail_pop3_bad_chars.py).
 * Run the badchars check again and again till it doesnt trancate the values in memory (delete the relevnt chars before running the check in buffer, of course).
+* Find a return address - using Mona.py in the Immunity debugger you should look for module that is not protected by DEP/ASLR and has a memory range that does not cotain bad characters.
+Run "!mona modules" in Immunity to find one.
+Run nasm_shell.rb in kali in order to find an opcode that is equivilent to JMP ESP command.
+Search for this opcode in all sections of the .dll file that found in modules by this command in Immunity:
+"!mona find -s "<OPCODE_IN_HEXA>" (Ex.\xff\xe4) -m <.DLL_FILE> (Ex. slmfc.dll)".
+Choose one that doesnt contain bad chars (double check that inside the debugger).
