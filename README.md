@@ -18,3 +18,4 @@ Run nasm_shell.rb in kali in order to find an opcode that is equivilent to JMP E
 Search for this opcode in all sections of the .dll file that found in modules by this command in Immunity:
 "!mona find -s "<OPCODE_IN_HEXA>" (Ex.\xff\xe4) -m <.DLL_FILE> (Ex. slmfc.dll)".
 Choose one that doesnt contain bad chars (double check that inside the debugger - Ex. address like 0x5f4a358f).
+* Edit the exploit and add this address instead of EIP (B's) place (See slmail_pop3_return_address.py in repo)
